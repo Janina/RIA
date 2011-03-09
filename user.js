@@ -1,8 +1,8 @@
-function User(name)
-{
-  User.getName = function()
+function User(uid)
+{ 
+  this.getID = function()
   {
-    return name;
+    return uid;
   };
   
   /*

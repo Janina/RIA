@@ -1,42 +1,43 @@
-function Event(date, note) //Konstruktorfunktion
+function Event(date, note, uid) //Konstruktorfunktion
 {
-  Event.getText = function()
-  {
-    return note;
-  };
-  
-  Event.setText = function(_note)
-  {
-    note = _note;
-  };
-  
-  Event.getDate = function()
+  this.getDate = function()
   {
     return date;
   };
   
-  Event.setDate = function(_date)
+  this.getText = function()
   {
-    date = _date;
+    return note;
   };
   
-  /*
-   * läggas till vid tid. Tag-egenskap på event
-   
-   this.setTag = function(_tag)
-   {
-     tag = _tag;
-   }
-   
-   this.getTag = function()
-   {
-     return tag;
-   }
-   */
+  this.getId = function()
+  {
+    return randomString();
+  }
+  
+  this.getUid = function()
+  {
+    this.userId = uid;  
+  }
+  
+  function randomString()
+  {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    var string_length = 8;
+    var randomstring = '';
+    for (var i=0; i<string_length; i++) 
+    {
+      var rnum = Math.floor(Math.random() * chars.length);
+      randomstring += chars.substring(rnum,rnum+1);
+    }
+    return randomstring;
+  } 
+  
+
    
    function insertEvent(e)
    {
-     
+    
    }
    
    function updateEvent(e)
@@ -54,7 +55,7 @@ function Event(date, note) //Konstruktorfunktion
    */
    function getAllEvents()
    {
-     
+
    }
    
    /*
@@ -71,4 +72,28 @@ function Event(date, note) //Konstruktorfunktion
    {
      
    }
+   
+
 }
+
+Event.prototype.insertEvent = function(e)
+{
+  
+};
+
+
+/*
+ * läggas till vid tid. Tag-egenskap på event
+ 
+ this.setTag = function(_tag)
+ {
+   tag = _tag;
+ }
+ 
+ this.getTag = function()
+ {
+   return tag;
+ }
+ */
+
+
