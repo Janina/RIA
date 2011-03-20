@@ -1,8 +1,5 @@
 function Datepicker() //Konstruktorfunktion
 {
-   
-
-   
    /*
     * Hämta valt datum 
     */
@@ -21,7 +18,7 @@ function Datepicker() //Konstruktorfunktion
    
  }
  	/*
-	* funktion för att rita ut datepicker.
+	* funktion för att rita ut datepicker och dess onSelect-event.
 	*/
  Datepicker.prototype.print = function(id)
  {
@@ -34,25 +31,41 @@ function Datepicker() //Konstruktorfunktion
      {
        var div = document.getElementById("calendar");
        var eventDiv = document.getElementById("events");
+       var newEventDiv = document.createElement("div");
+       newEventDiv.setAttribute("id", "events");
        var findEvent = false;
+       var todayarray = [];
+       
+       //Går igenom varje event i eventarrayen. Samma datum som vald i datepickern -> ska skrivas ut. 
+        
        for(var i=0; i < CalApp.eventarray.length; i++)
        {
-  
          if(CalApp.eventarray[i].getDate() == dateText)
          {
-           div.removeChild(eventDiv);
-           var postit = new Postitwidget(CalApp.eventarray[i], i+20);
-           var posDiv = postit.print();
-           var newEventDiv = document.createElement("div");
-           newEventDiv.setAttribute("id", "events");
-           newEventDiv.appendChild(posDiv);
-           div.appendChild(newEventDiv);
+           todayarray.push(CalApp.eventarray[i]);
            findEvent = true;
+         }
+       }
+       
+       if(findEvent == true)
+       {
+         //skriver ut de event som finns på valt datum. 
+         $('#events').remove();
+         div.appendChild(newEventDiv);
+
+         for(var y=0; y < todayarray.length; y++)
+         {
+           var postit = new Postitwidget(todayarray[y], y+20);
+           var posDiv = postit.print();
+           newEventDiv.appendChild(posDiv);
+           $("#"+postit.getDivname()).draggable();
+
          }
        }
   
        if(findEvent == false)
        {
+           //finns inga event på datum -> en dialog ruta visas.
            var dialog = document.createElement("div");
            dialog.setAttribute("id", "dialog");
            dialog.setAttribute("title", dateText)

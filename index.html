@@ -5,48 +5,52 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>CaledarBoard</title>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
-	   <link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet" />
-	    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-
-<link type="text/css" href="css/themename/jquery-ui-1.8.10.custom.css" rel="Stylesheet" />	
-
-
+	  <!--<link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet" />-->
+	  <!--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>-->
+    <link type="text/css" href="css/custom-theme/jquery-ui-1.8.10.custom.css" rel="Stylesheet" />
   </head>
+  
   <body>
+    <!-- fb login -->
       <div id="fb-root"></div>
       <script src="http://connect.facebook.net/en_US/all.js"></script>
       <script>
-         //facebook uppgifter
          FB.init({ 
             appId:'130018193735247', cookie:true, 
             status:true, xfbml:true,
          });
       </script>
-       <!--<fb:login-button id="fbButton">Login with Facebook</fb:login-button>-->
-    
-    <div id="menu">
-      <a href="#" id="start">Start</a>
-      <a href="#" id="add">Add</a>
-      <a href="#" id="login">Login</a>
+
+    <div id="header">
+      <div id="menu">
+        <a href="#" id="start">Home</a>
+        <a href="#" id="add">New event  </a>
+        <!--<fb:login-button id="login">Login with Facebook</fb:login-button>-->
+        <a href="#" id="login" >Login with Facebook</a>
+      </div>
+      <a href="#" <img src="image/logga2.png" id="start_text"></a>
     </div>
+    
+    <img src="image/welcome_postit.png" id="start_img"/>
+    
     <div id="form"></div>
     <div id="calendar"></div>
-	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.10.custom.min.js"></script>
-	 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-
-	<script type="text/javascript" src="datepicker.js"></script>
-	
-	<script type="text/javascript" src="postitwidget.js"></script>
-	<script type="text/javascript" src="ui.js"></script>
+    <div id="footer">
+      <img id="copytext" src="image/copytext.png">
+    </div>
+    
+  	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script> 
+  	<script type="text/javascript" src="js/jquery-ui-1.8.10.custom.min.js"></script>
+  	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  	<script type="text/javascript" src="datepicker.js"></script>
+  	<script type="text/javascript" src="postitwidget.js"></script>
+  	<script type="text/javascript" src="ui.js"></script>
+  	<script type="text/javascript" src="couchDB.js"></script>
+  	<script type="text/javascript" src="user.js"></script>
     <script type="text/javascript" src="event.js"></script>
     <script type="text/javascript" src="calApp.js"></script>
-
     <script type="text/javascript" src="dialog.js"></script>
-     <script type="text/javascript" src="user.js"></script>
-	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>-->
-	
-	
-   <!--<script src="js/debug.js"></script>-->
+  	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>-->
+     <!--<script src="js/debug.js"></script>-->
   </body>
 </html>

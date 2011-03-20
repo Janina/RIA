@@ -3,8 +3,7 @@ function Dialog(text, e) //Konstruktorfunktion
   if(e != null)
   {
     this.title = e.getDate();
-    this.text = e.getText();
-   
+    this.text = e.getText();  
   }
 }
 
@@ -14,7 +13,6 @@ function Dialog(text, e) //Konstruktorfunktion
 Dialog.prototype.printDialog = function(id)
 {
     $("#"+id).dialog();
-     
 };
 
 /*

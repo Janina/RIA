@@ -1,23 +1,40 @@
 function Event(date, note, uid) //Konstruktorfunktion
 {
+  var evID;
+  
   this.getDate = function()
   {
     return date;
-  };
+  }
+ 
+  this.setDate = function(d)
+  {
+    date = d;
+  }
   
   this.getText = function()
   {
     return note;
-  };
+  }
+  
+  this.setText = function(n)
+  {
+    note = n;
+  }
   
   this.getId = function()
   {
-    return randomString();
+    return this.evID;
   }
   
   this.getUid = function()
   {
     this.userId = uid;  
+  }
+  
+  this.setId = function()
+  {
+    this.evID = randomString();
   }
   
   function randomString()
@@ -32,49 +49,8 @@ function Event(date, note, uid) //Konstruktorfunktion
     }
     return randomstring;
   } 
-  
-
-   
-   function insertEvent(e)
-   {
-    
-   }
-   
-   function updateEvent(e)
-   {
-     
-   }
-   
-   function deleteEvent(e)
-   {
-     
-   }
-   
-   /*
-   * Hämtar alla event. Returnerar en array.
-   */
-   function getAllEvents()
-   {
-
-   }
-   
-   /*
-    * Hämtar de senaste eventen
-    */
-   function getLatestEvent()
-   {
-     
-   }
-   /*
-   * häma event från ett specifikt datum
-   */
-   function getEventsFromDate(date)
-   {
-     
-   }
-   
-
 }
+
 
 Event.prototype.insertEvent = function(e)
 {

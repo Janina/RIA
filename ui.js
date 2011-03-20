@@ -19,35 +19,40 @@ Ui.prototype.printEvents = function(eventarray)
       div.appendChild(eventDiv);
       for(var i=0; i < eventarray.length; i++)
       {
-        Ui.prototype.printEvent(eventarray[i], eventDiv);
+        Ui.prototype.printEvent(eventarray[i], eventDiv, i);
       }  
   }
   else
   {
       for(var i=0; i < eventarray.length; i++)
       {
-        Ui.prototype.printEvent(eventarray[i], eDiv);
+        Ui.prototype.printEvent(eventarray[i], eDiv, i);
       }
-    
   }
 }
 
 /* 
  * skriver ut html för ett event och hur det ska visas på sidan.
  */
-Ui.prototype.printEvent = function(ev, eventDiv)
+Ui.prototype.printEvent = function(ev, eventDiv, i)
 {
   var today = this.getDateFormat();
   if(ev.getDate() == today)
   {
-    var postit = new Postitwidget(eventarray[i], i);
-    var posDiv = postit.print();
-    eventDiv.appendChild(posDiv);
+     var postit = new Postitwidget(CalApp.eventarray[i], i);
+    if(document.getElementById(postit.getDivname()) == undefined)
+    {
+      var posDiv = postit.print();
+      eventDiv.appendChild(posDiv);
+      $("#"+postit.getDivname()).draggable();
+
+    }
+
   }
 }
 
 /*
- * skapa upp ett datum med ett visst format: yyyy-mm-dd
+ * skapa upp ett datum med ett visst format:t yyyy-mm-dd
  * returnera datum
  */
 Ui.prototype.getDateFormat = function()
@@ -67,7 +72,7 @@ Ui.prototype.getDateFormat = function()
     day = "0" + day;
   }
   
-  today = year + "-" + day + "-" + month;
+  today = year + "-" + month + "-" + day;
   return today;
 },
 
@@ -76,10 +81,8 @@ Ui.prototype.getDateFormat = function()
  */
 Ui.prototype.printCalendarView = function(eventarray)
 {
-	//Skapar upp menyn
 	var div = document.getElementById("calendar");
 
-  //Ui.prototype.printMenu(div);
 	if($('#datepicker').length == 0)
 	{
 	   //skapar jquery datepicker objekt.
@@ -88,9 +91,8 @@ Ui.prototype.printCalendarView = function(eventarray)
       div.appendChild(datepick);
       var datepick = new Datepicker();
       datepick.print("datepicker");
+      $("#datepicker").draggable();
 	}
-
-
 	//Skapar upp postitlapparna
 	Ui.prototype.printEvents(eventarray);
 },
@@ -98,75 +100,101 @@ Ui.prototype.printCalendarView = function(eventarray)
 /*
  * skriver ut vy för att lägga till en ny händelse. Ett fomrulär visas. 
  */
-Ui.prototype.printFormView = function(title, txt)
+Ui.prototype.printFormView = function(e)
 {
 	var div = document.getElementById("form");
-	
-	//Ui.prototype.printMenu(div);
-	
-	if($('#formAdd').length == 0)
-	{
-	  var heading = document.createElement("h3");
+
+  $('#formAdd').remove();
+	/*if($('#formAdd').length == 0 || e == null)
+	{*/
+	  /*
+	  if(e == null)
+	  {
+	    $('#formAdd').remove();
+	  }
+	  */
+	  var heading = document.createElement("h2");
     heading.textContent = "Add Event";
-    
-  
-    div.appendChild(heading);
-    
+
     var form = document.createElement("form");
     form.setAttribute("id", "formAdd");
+
+    var errortxt = document.createElement("p");
+    errortxt.setAttribute("id", "formerror");
   
     var p1 = document.createElement("p");
-    p1.textContent = "Date:";
+    p1.textContent = "Date";
     var date = document.createElement("input");
     date.setAttribute("type", "text");
     date.setAttribute("id", "addDate");
-    
-    /*var date = document.createElement("div");
-    date.setAttribute("id", "dp");
-    //date.setAttribute("type", "text");
-    date.textContent = "specify your date:";
-    div.appendChild(date);
-    //date.setAttribute("type", "text");
-    var datepicker2 = new Datepicker();
-    datepicker2.print("dp");
-    */
+    date.setAttribute("name", "date");
+    date.setAttribute("maxlength", "10");
   
     var p2 = document.createElement("p");
-    p2.textContent = "What happen?";
+    p2.textContent = "What's happening?";
+    pinfo = document.createElement("p");
+    pinfo.setAttribute("id", "smalltext");
+    pinfo.textContent = "(max 35 character)";
   
     var note = document.createElement("input");
     note.setAttribute("type", "text");
     note.setAttribute("id", "addText");
+    note.setAttribute("name", "text");
+    note.setAttribute("maxlength", "35");
+    note.setAttribute("size", "30");
     
     var submit = document.createElement("input");
     submit.setAttribute("id", "save");
+
+    submit.setAttribute("class", "saveB");
     submit.setAttribute("type", "button");
     submit.setAttribute("value", "Save");
+    //$("button").button();
+
+    var backB = document.createElement("a");
+    backB.setAttribute("id", "back");
+    backB.setAttribute("src", "#");
+    backB.textContent = "<- back";
     
-    if(title != null)
+    var newline = document.createElement("br");
+    
+    if(e != null)
     {
-      alert(title);
-      date.setAttribute("value", title);
-      note.setAttribute("value", txt);
+      //ett edit-formulär har öppnts. Sätter in eventets värden i formuläret.
+      date.setAttribute("value", e.getDate());
+      note.setAttribute("value", e.getText());
+      
+      var hidden_id = document.createElement("p");
+      hidden_id.textContent = e.getId();
+      hidden_id.setAttribute("id", "hidden");
     }
     else
     {
       date.value = "yyyy-mm-dd";
+      note.value = "";
     }
     
     div.appendChild(form);
+    form.appendChild(heading);
+    form.appendChild(errortxt);
     form.appendChild(p1);
+    if(e != null)
+    {
+      form.appendChild(hidden_id);
+    }
     form.appendChild(date);
     form.appendChild(p2);
+    form.appendChild(pinfo);
     form.appendChild(note);
+    form.appendChild(newline);
     form.appendChild(submit);
-	}
-	
-	
+    form.appendChild(newline);
+    form.appendChild(backB);
+	//}
 },
 
 /*
- * skriver ut applikationens meny.
+ * skriver ut applikationens meny. OBS! Används ej nu.
  */    
 Ui.prototype.printMenu = function(div)
 {
@@ -177,9 +205,6 @@ Ui.prototype.printMenu = function(div)
   startB.setAttribute("href", "#");
   startB.setAttribute("id", "start");
   startB.textContent = "Start";
-  
-
-  
   var formB = document.createElement("a");
   formB.setAttribute("href", "#");
   formB.setAttribute("id", "add");
@@ -188,7 +213,6 @@ Ui.prototype.printMenu = function(div)
   loginB.setAttribute("href", "#");
   loginB.setAttribute("id", "login");
   loginB.textContent = "Login"; 
-  
   
   div.appendChild(menuDiv);
   menuDiv.appendChild(startB);
@@ -207,9 +231,7 @@ Ui.prototype.printMessageBox = function(div, message, title)
     var d = new Dialog("saved", null);
     d.printDialog("messDialog");
 },
-
-
-    
+   
 /*
  * ritar ut en säkerhetsfråga angående borttagning, sparande osv.
  * skickar med vilken åtegärd som ska göras och event-objektet.

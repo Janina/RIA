@@ -1,6 +1,6 @@
 function User(uid)
 { 
-  this.getID = function()
+  this.getId = function()
   {
     return uid;
   };
