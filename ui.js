@@ -6,6 +6,7 @@ function Ui()
 /*
  * funktion får att gå igenom alla event
  * anropar printEvent för varje event den går igenom.  
+ * @param array
  */
 Ui.prototype.printEvents = function(eventarray)
 {
@@ -33,6 +34,7 @@ Ui.prototype.printEvents = function(eventarray)
 
 /* 
  * skriver ut html för ett event och hur det ska visas på sidan.
+ * @param event, eventID, number
  */
 Ui.prototype.printEvent = function(ev, eventDiv, i)
 {
@@ -45,9 +47,7 @@ Ui.prototype.printEvent = function(ev, eventDiv, i)
       var posDiv = postit.print();
       eventDiv.appendChild(posDiv);
       $("#"+postit.getDivname()).draggable();
-
     }
-
   }
 }
 
@@ -78,6 +78,7 @@ Ui.prototype.getDateFormat = function()
 
 /*
  * skriver ut vy för kalendern. Startsidan. 
+ * @param array
  */
 Ui.prototype.printCalendarView = function(eventarray)
 {
@@ -99,6 +100,7 @@ Ui.prototype.printCalendarView = function(eventarray)
 
 /*
  * skriver ut vy för att lägga till en ny händelse. Ett fomrulär visas. 
+ * @param Event-objekt
  */
 Ui.prototype.printFormView = function(e)
 {
@@ -219,7 +221,11 @@ Ui.prototype.printMenu = function(div)
   menuDiv.appendChild(formB);
   menuDiv.appendChild(loginB);
 },    
-    
+
+/*
+ * skriver ut meddelande-dialog
+ * @param div(vart den ska skrivas ut), meddelande, title.
+ */
 Ui.prototype.printMessageBox = function(div, message, title)
 {
     var dialog = document.createElement("div");
@@ -235,6 +241,7 @@ Ui.prototype.printMessageBox = function(div, message, title)
 /*
  * ritar ut en säkerhetsfråga angående borttagning, sparande osv.
  * skickar med vilken åtegärd som ska göras och event-objektet.
+ * @param element
  */
 Ui.prototype.printConfirmBox = function(opts)
 {

@@ -25,6 +25,19 @@ function Datepicker() //Konstruktorfunktion
    $('div#'+id).datepicker({
      
    dateFormat: 'yy-mm-dd',
+   beforeShowDay: function(date){
+   var d = $.datepicker.formatDate('yy-mm-dd', new Date(date)); 
+     for (var i = 0; i < CalApp.eventarray.length; i++) 
+     {
+        if (CalApp.eventarray[i].getDate() == d) 
+        {
+          //[disable/enable, class for styling appearance, tool tip]
+            return [true, 'highlight'];
+        }
+     }
+     return [true, ''];
+    },
+   
    onSelect: function(dateText, inst) { 
      
      if(CalApp.inlogged == true)
@@ -37,7 +50,6 @@ function Datepicker() //Konstruktorfunktion
        var todayarray = [];
        
        //Går igenom varje event i eventarrayen. Samma datum som vald i datepickern -> ska skrivas ut. 
-        
        for(var i=0; i < CalApp.eventarray.length; i++)
        {
          if(CalApp.eventarray[i].getDate() == dateText)
@@ -66,6 +78,7 @@ function Datepicker() //Konstruktorfunktion
        if(findEvent == false)
        {
            //finns inga event på datum -> en dialog ruta visas.
+           /*
            var dialog = document.createElement("div");
            dialog.setAttribute("id", "dialog");
            dialog.setAttribute("title", dateText)
@@ -75,6 +88,7 @@ function Datepicker() //Konstruktorfunktion
            var d = new Dialog("Det finns inga händelser på angivet datum", null);
            d.printDialog("dialog");
            var ui = new Ui();
+           */
         }
      }
      }

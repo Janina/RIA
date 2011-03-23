@@ -50,20 +50,20 @@ Postitwidget.prototype.print = function()
   var editB = document.createElement("a");
   editB.setAttribute("href", "#");
   editB.setAttribute("id", "edit");
-  editB.textContent = "edit";
-  editB.setAttribute("name", this.getEventId());
+  //editB.textContent = "edit";
+  
   /*
   var id = document.createElement("p");
   id.setAttribute("id", this.getEventId());
   */
-  /*
+
   var imgEdit = document.createElement("img");
-  imgEdit.setAttribute("src", "image/Pencil_icon.png");
+  imgEdit.setAttribute("src", "image/Pencil-icon_small.png");
   imgEdit.setAttribute("id", "edit_img");
-  */
+  imgEdit.setAttribute("name", this.getEventId());
   
   deleteB.appendChild(imgDel);
-  //editB.appendChild(imgEdit);
+  editB.appendChild(imgEdit);
   posDiv.appendChild(deleteB);
   posDiv.appendChild(heading);
   posDiv.appendChild(note);
